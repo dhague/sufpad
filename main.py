@@ -12,11 +12,9 @@ from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 from adafruit_hid.keycode import Keycode
 
-from adafruit_hid.consumer_control import ConsumerControl
-from adafruit_hid.consumer_control_code import ConsumerControlCode
-
 from digitalio import DigitalInOut, Direction, Pull
 
+# Configure access to the Pimoroni Pico RGB keypad
 cs = DigitalInOut(board.GP17)
 cs.direction = Direction.OUTPUT
 cs.value = 0
@@ -27,10 +25,7 @@ device = I2CDevice(i2c, 0x20)
 kbd = Keyboard(usb_hid.devices)
 layout = KeyboardLayoutUS(kbd)
 
-
-lit = 0
-last_button_states = 0
-colour_index = 0
+# Set up constants for colours
 RED = (0x80, 0x00, 0x00)
 RED0 = (0x20, 0x00, 0x00)
 RED1 = (0x30, 0x00, 0x00)
@@ -51,6 +46,8 @@ MAGENTA = (0x80, 0x00, 0x80)
 R=0
 G=1
 B=2
+
+# Set up keypad colours & key bindings
 BUTTONS = [(RED0, Keycode.KEYPAD_ZERO),
            (RED1, Keycode.KEYPAD_ONE),
            (RED2, Keycode.KEYPAD_TWO),
@@ -81,17 +78,10 @@ def button_colour(i):
     return (r, g, b)
 
 def bright(rgb):
-    return ((int)(rgb[0]*1.5), (int)(rgb[1]*1.5), (int)(rgb[2]*1.5))
+    return ((int)(rgb[R]*1.5), (int)(rgb[G]*1.5), (int)(rgb[B]*1.5))
 
 def dim(rgb):
-    return ((int)(rgb[0]*0.5), (int)(rgb[1]*0.5), (int)(rgb[2]*0.5))
-
-for i in range(0, num_pixels):
-    pixels[i] = dim(button_colour(i))
-
-# Works up to here
-
-# TODO: Keyboard stuff
+    return ((int)(rgb[R]*0.5), (int)(rgb[G]*0.5), (int)(rgb[B]*0.5))
 
 def read_button_states(x, y):
     pressed = [0] * 16
@@ -108,17 +98,19 @@ def read_button_states(x, y):
     return pressed
 
 held = [0] * 16
+
+# Main processing loop
 while True:
     pressed = read_button_states(0, 16)
     button_pressed = False
     for i in range(0, num_pixels):
         if pressed[i]:
-            print("Button pressed", i)
             button_pressed = True
             pixels[i] = bright(button_colour(i))
 
             if not held[i]:
-                kbd.send(BUTTONS[i][KEY])
+                if BUTTONS[i][KEY] is not None:
+                    kbd.send(BUTTONS[i][KEY])
                 held[i] = 1
 
     if not button_pressed:
