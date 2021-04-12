@@ -1,6 +1,8 @@
 # sufpad
 Software for a Sufferfest-dedicated keypad
 
+![Sufferfest Keypad](images/sufpad.png?raw=true "Keypad")
+
 ## Prerequisites
 
 [Pimoroni Pico RGB Keypad](https://shop.pimoroni.com/products/pico-rgb-keypad-base)
