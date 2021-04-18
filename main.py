@@ -48,18 +48,18 @@ G=1
 B=2
 
 # Set up keypad colours & key bindings
-BUTTONS = [(RED0, Keycode.KEYPAD_ZERO),
-           (RED1, Keycode.KEYPAD_ONE),
-           (RED2, Keycode.KEYPAD_TWO),
-           (RED3, Keycode.KEYPAD_THREE),
+BUTTONS = [(RED0, Keycode.ZERO),
+           (RED1, Keycode.ONE),
+           (RED2, Keycode.TWO),
+           (RED3, Keycode.THREE),
 
-           (RED4, Keycode.KEYPAD_FOUR),
-           (RED5, Keycode.KEYPAD_FIVE),
-           (RED6, Keycode.KEYPAD_SIX),
-           (RED7, Keycode.KEYPAD_SEVEN),
+           (RED4, Keycode.FOUR),
+           (RED5, Keycode.FIVE),
+           (RED6, Keycode.SIX),
+           (RED7, Keycode.SEVEN),
 
-           (RED8, Keycode.KEYPAD_EIGHT),
-           (RED9, Keycode.KEYPAD_NINE),
+           (RED8, Keycode.EIGHT),
+           (RED9, Keycode.NINE),
            (WHITE, Keycode.UP_ARROW),
            (CYAN, Keycode.GRAVE_ACCENT),
 
